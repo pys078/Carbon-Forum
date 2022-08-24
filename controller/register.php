@@ -71,7 +71,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
 			$ErrorCode = 104005;
 			break;
 		}
+		//我的世界UUID offline mode 离线转换
+		function offlinePlayerUuid($username) {
+    			$data = hex2bin(md5("OfflinePlayer:" . $username));
+    			$data[6] = chr(ord($data[6]) & 0x0f | 0x30);
+    			$data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+    			return createJavaUuid(bin2hex($data));
+		}
 
+		function createJavaUuid($striped) {
+    			$components = array(
+        			substr($striped, 0, 8),
+        			substr($striped, 8, 4),
+        			substr($striped, 12, 4),
+        			substr($striped, 16, 4),
+        			substr($striped, 20),
+    			);
+    			return implode('-', $components);
+		}
+		$Uuid		 = offlinePlayerUuid($UserName)
 		$NewUserSalt     = mt_rand(100000, 999999);
 		$NewUserPassword = md5($Password . $NewUserSalt);
 		$NewUserData     = array(
