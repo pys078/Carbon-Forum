@@ -494,7 +494,8 @@ function IsJson($String)
 //判断是否为合法用户名
 function IsName($string)
 {
-	return !preg_match('/^[0-9]{4,20}$/', $string) && preg_match('/^[a-zA-Z0-9\x{4e00}-\x{9fa5}\-_]{4,20}$/ui', $string);
+	// 去掉匹配中文用户名，不允许中文用户名注册，允许下划线、数字、字母
+	return !preg_match('/[\u4e00-\u9fa5]+$/', $string) && preg_match('/^[a-zA-Z0-9_]+$/ui', $string);
 }
 
 
