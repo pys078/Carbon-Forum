@@ -12,7 +12,8 @@
  */
 
 function CheckUserName() {
-	if ($("#UserName").val() && $("#UserName").val().length >= 4 && $("#UserName").val().length <= 20) {
+	// 去除用户名长度限制
+	if ($("#UserName").val()) {
 		$.ajax({
 			url: WebsitePath + '/json/user_exist',
 			data: {
