@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
 	if (!ReferCheck(Request('Post', 'FormHash'))) {
 		AlertMsg($Lang['Error_Unknown_Referer'], $Lang['Error_Unknown_Referer'], 403);
 	}
-	$UserName   = strtolower(Request('Post', 'UserName'));
+	$UserName   = Request('Post', 'UserName');
 	$Email      = strtolower(Request('Post', 'Email'));
 	$Password   = Request('Post', 'Password');
 	$VerifyCode = intval(Request('Post', 'VerifyCode'));
@@ -71,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
 			$ErrorCode = 104005;
 			break;
 		}
-		//我的世界UUID offline mode 离线转换
-		$Authy = new Db('localhost:7011', '3306', 'authy', 'authy', '2ysCLM85fhsmAj2m')
+		
+        	$Hash = hash("sha256", utf8_encode($Password));
 		function offlinePlayerUuid($username) {
     			$data = hex2bin(md5("OfflinePlayer:" . $username));
     			$data[6] = chr(ord($data[6]) & 0x0f | 0x30);
@@ -90,7 +90,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
     			);
     			return implode('-', $components);
 		}
-		$Uuid		 = offlinePlayerUuid($UserName)
+		
+		$Uuid		 = offlinePlayerUuid($UserName);
+		
+        	// 创建连接
+        	$conn = new mysqli("localhost:20008", "authy", "2ysCLM85fhsmAj2m", "authy");
+ 
+        	// 检测连接
+        	if ($conn->connect_error) {
+            		$Error     = $Lang['Prohibit_Registration'];
+			$ErrorCode = 104006;
+            		break;
+        	} 
+        	$sql = "INSERT INTO players (uuid, username, ip, password, isPinEnabled, pin, session)
+        	VALUES ('$Uuid', '$UserName', '$CurIP', '2ae8049bc4d2836769fda8926327a91e23fdb493406ceac66a331f21f6f3f3c0', '0', 'null', '0')";
+ 
+        	if ($conn->query($sql) === TRUE) {
+        	} else {
+            		$Error     = $Lang['Prohibit_Registration'];
+			$ErrorCode = 104006;
+            		break;
+        	}
+        	$conn->close();
 		$NewUserSalt     = mt_rand(100000, 999999);
 		$NewUserPassword = md5($Password . $NewUserSalt);
 		$NewUserData     = array(
