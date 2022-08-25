@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
 		AlertMsg($Lang['Error_Unknown_Referer'], $Lang['Error_Unknown_Referer'], 403);
 	}
 	$ReturnUrl  = htmlspecialchars(Request('Post', 'ReturnUrl'));
-	$UserName   = strtolower(Request('Post', 'UserName'));
+	$UserName   = Request('Post', 'UserName');
 	$Password   = Request('Post', 'Password');
 	$Expires    = min(intval(Request('Post', 'Expires', 30)), 30); //最多保持登陆30天
 	$VerifyCode = intval(Request('Post', 'VerifyCode'));
