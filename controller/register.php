@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
             		break;
         	} 
         	$sql = "INSERT INTO players (uuid, username, ip, password, isPinEnabled, pin, session)
-        	VALUES ('$Uuid', '$UserName', '$CurIP', '2ae8049bc4d2836769fda8926327a91e23fdb493406ceac66a331f21f6f3f3c0', '0', 'null', '0')";
+        	VALUES ('$Uuid', '$UserName', '$CurIP', '$Hash', '0', 'null', '0')";
  
         	if ($conn->query($sql) === TRUE) {
         	} else {
