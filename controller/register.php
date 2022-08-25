@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $IsApp) {
 			break;
 		}
 		//我的世界UUID offline mode 离线转换
+		$Authy = new Db('localhost:7011', '3306', 'authy', 'authy', '2ysCLM85fhsmAj2m')
 		function offlinePlayerUuid($username) {
     			$data = hex2bin(md5("OfflinePlayer:" . $username));
     			$data[6] = chr(ord($data[6]) & 0x0f | 0x30);
