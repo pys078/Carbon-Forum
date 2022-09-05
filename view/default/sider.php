@@ -6,7 +6,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 	<div class="sider-box-title"><?php echo $Lang['Log_In']; ?></div>
 	<div class="sider-box-content">
 		<div class="center-align" style="width:226px;">
-			<form action="<?php echo $Config['WebsitePath']; ?>/login" method="post" onsubmit="JavaScript:this.Password.value=md5(this.Password.value);">
+			<form action="<?php echo $Config['WebsitePath']; ?>/login" method="post">
 				<input type="hidden" value="<?php echo $RequestURI; ?>" name="ReturnUrl" />
 				<input type="hidden" name="FormHash" value="<?php echo $FormHash; ?>" />
 				<input type="hidden" name="Expires" value="30" />
