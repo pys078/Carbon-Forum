@@ -120,7 +120,7 @@ if($CurUserID){
 					<h1><?php echo $Lang['Log_In']; ?></h1>
 					<br />
 				</p>
-				<form action="<?php echo $Config['WebsitePath']; ?>/login" method="post" onsubmit="JavaScript:this.Password.value=md5(this.Password.value);">
+				<form action="<?php echo $Config['WebsitePath']; ?>/login" method="post">
 					<div class="input-group">
 						<input type="hidden" value="<?php echo $RequestURI; ?>" name="ReturnUrl" id="ReturnUrl" />
 						<input type="hidden" name="FormHash" value="<?php echo $FormHash; ?>" />
