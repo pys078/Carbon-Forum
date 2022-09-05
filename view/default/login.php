@@ -11,7 +11,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 		<p class="red fs12" style="margin-left:60px;">
 		› <?php echo $Error; ?> <br/></p>
 		<?php } ?>
-		<form action="?" method="post" onsubmit="JavaScript:this.Password.value=md5(this.Password.value);">
+		<form action="?" method="post">
 			<input type="hidden" value="<?php echo $ReturnUrl; ?>" name="ReturnUrl" />
 			<input type="hidden" name="FormHash" value="<?php echo $FormHash; ?>" />
 			<table cellpadding="5" cellspacing="8" border="0" width="100%" class="fs14">
