@@ -7,7 +7,7 @@ if($Error){
 }
 ?>
 <br />
-<form action="?" method="post" onsubmit="JavaScript:this.Password.value=md5(this.Password.value);">
+<form action="?" method="post">
 	<div class="input-group">
 		<input type="hidden" name="FormHash" value="<?php echo $FormHash; ?>" />
 		<input type="text" placeholder="<?php echo $Lang['UserName']; ?>" name="UserName" value="<?php echo htmlspecialchars($UserName); ?>" />
